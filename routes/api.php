@@ -15,11 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::group(['prefix' => '/countries'], function() {
-    Route::post('/update/visitors', [CountryVisitorsStatisticsController::class, 'updateCountryVisitors']);
-    Route::get('/get/visitors', [CountryVisitorsStatisticsController::class, 'getCountriesVisitors']);
+    Route::post('/visitors/update', [CountryVisitorsStatisticsController::class, 'updateCountryVisitors']);
+    Route::get('/visitors/get', [CountryVisitorsStatisticsController::class, 'getCountriesVisitors']);
 });

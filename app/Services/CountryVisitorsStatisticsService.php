@@ -36,16 +36,18 @@ class CountryVisitorsStatisticsService
     public function getCountriesVisitors(): CountriesDTO
     {
         $countriesDTO = new CountriesDTO();
-        $countryCodes = Redis::hKeys(self::REDIS_KEY);
-        $visitorsCount = Redis::hVals(self::REDIS_KEY);
+        $countries = Redis::hgetall(self::REDIS_KEY);
 
-        foreach ($countryCodes as $key => $countryCode) {
-            $countryVisitorsDTO = new CountryVisitorsDTO();
-            $countryVisitorsDTO->code = $countryCode;
-            $countryVisitorsDTO->visitorsCount = (int)$visitorsCount[$key];
-            $countriesDTO->countries[] = $countryVisitorsDTO;
+        if (!$countries) {
+            return $countriesDTO;
         }
 
+        foreach ($countries as $countryCode => $countryCount) {
+            $countryVisitorsDTO = new CountryVisitorsDTO();
+            $countryVisitorsDTO->code = $countryCode;
+            $countryVisitorsDTO->visitorsCount = (int)$countryCount;
+            $countriesDTO->countries[] = $countryVisitorsDTO;
+        }
         return $countriesDTO;
     }
 
