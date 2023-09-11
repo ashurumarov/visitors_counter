@@ -1,7 +1,12 @@
 ### Запуск проекта
 
 ```shell
-./run.sh run-project
+make run-project
+```
+
+#### Запуск тестов
+```shell
+make run-tests
 ```
 
 ##### Записать посетителя для страны:

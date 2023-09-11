@@ -49,7 +49,7 @@ class CountryVisitorsStatisticsTest extends TestCase
 
         $response = $this->postJson('/api/countries/visitors/update', ['countryCode' => 'test']);
         $response->assertStatus(400);
-        self::assertStringContainsString('Country test is not allowed to increment', $response['data']);
+        self::assertEquals('Country test is not allowed to increment', $response['data']);
 
         $this->redis->shouldReceive('hincrby');
         $response = $this->postJson('/api/countries/visitors/update', ['countryCode' => 'it']);
@@ -58,6 +58,6 @@ class CountryVisitorsStatisticsTest extends TestCase
         $this->redis->shouldReceive('hincrby');
         $response = $this->postJson('/api/countries/visitors/update', []);
         $response->assertStatus(400);
-        self::assertStringContainsString('Country  is not allowed to increment', $response['data']);
+        self::assertEquals('Country  is not allowed to increment', $response['data']);
     }
 }
