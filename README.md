@@ -69,4 +69,18 @@ Running 1s test @ http://localhost/api/countries/visitors/get
   Socket errors: connect 249, read 54, write 0, timeout 0
 Requests/sec:     49.02
 Transfer/sec:     18.48KB
+
+----------------------------------------------------------------------
+
+./wrk -t12 -c40 -d30s -s  post.lua  http://localhost/countries/ 
+Running 30s test @ http://localhost/countries/
+  12 threads and 40 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency   169.13ms   62.53ms 436.93ms   65.50%
+    Req/Sec     9.04      5.07    30.00     76.68%
+  2768 requests in 30.10s, 18.05MB read
+  Socket errors: connect 0, read 2768, write 0, timeout 0
+  Non-2xx or 3xx responses: 2768
+Requests/sec:     91.97
+Transfer/sec:    614.27KB
 ```
